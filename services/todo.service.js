@@ -8,15 +8,17 @@ exports.getTodos = async function(query, page, limit) {
   var options = {
     page,
     limit
-  }
+  };
 
   try {
     var todos = await ToDo.paginate(query, options);
+
     return todos;
   } catch (error) {
+
     throw Error("Error while paginating todos")
   }
-}
+};
 
 
 // create a new to do item
@@ -27,7 +29,7 @@ exports.createTodo = async function(todo) {
     description: todo.description,
     date: new Date(),
     status: todo.status
-  })
+  });
 
   // save the newly created to do item
   try {
@@ -37,7 +39,7 @@ exports.createTodo = async function(todo) {
   } catch (error) {
     throw Error("Error while saving newly created todo item")
   }
-}
+};
 
 
 exports.updateToDo = async function(todo) {
@@ -69,14 +71,12 @@ exports.updateToDo = async function(todo) {
 // delete the to do item
 exports.deleteTodo = async function(id) {
   try {
-    var deleted = await ToDo.remove({_id: id});
-    if (deleted.result.n === 0) {
-      throw Error("Todo could not be deleted");
-    }
+    var deleted = ToDo.deleteOne({ "_id": id });
+    // var deleted = await To Do.deleteOne({_id: id});
 
     return deleted
   } catch (error) {
-    throw Error("Error occured while deleting todo");
+    throw Error("Error occured while deleting todo: " + error.message);
   }
 };
 
