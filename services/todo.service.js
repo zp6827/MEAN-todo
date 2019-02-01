@@ -41,42 +41,45 @@ exports.createTodo = async function(todo) {
 
 
 exports.updateToDo = async function(todo) {
-  var id = todo.id
+  var id = todo.id;
 
   try {
-    var oldTodo = await ToDo.findById(id)
+    var oldTodo = await ToDo.findById(id);
   } catch (error) {
-    throw Error("Error occured while trying to find todo with id: ")
+    throw Error("Error occured while trying to find todo with id: ");
   }
 
-  if (!oldTodo) return false
+  if (!oldTodo) return false;
 
-  console.log("Updating todo: " + oldTodo)
+  console.log("Updating todo: " + oldTodo);
 
-  oldTodo.title = todo.title
-  oldTodo.description = todo.description
-  oldTodo.status = todo.status
+  oldTodo.title = todo.title;
+  oldTodo.description = todo.description;
+  oldTodo.status = todo.status;
 
   try {
-    var savedTodo = await oldTodo.save()
+    var savedTodo = await oldTodo.save();
     return savedTodo;
   }catch(error) {
     throw Error("An Error occured while saving the updated Todo");
   }
-}
+};
 
 
 // delete the to do item
 exports.deleteTodo = async function(id) {
   try {
-    var deleted = await ToDo.remove({_id: id})
+    var deleted = await ToDo.remove({_id: id});
     if (deleted.result.n === 0) {
-      throw Error("Todo could not be deleted")
+      throw Error("Todo could not be deleted");
     }
 
     return deleted
   } catch (error) {
-    throw Error("Error occured while deleting todo")
+    throw Error("Error occured while deleting todo");
   }
-}
+};
+
+
+
 

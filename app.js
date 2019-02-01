@@ -3,11 +3,12 @@ let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
-let mongoose = requre('mongoose');
+let mongoose = require('mongoose');
 let bluebird = require('bluebird');
 
-let indexRouter = require('./routes/index');
-let usersRouter = require('./routes/users');
+let index = require('./routes/index');
+let users = require('./routes/users');
+let api = require('./routes/api.route');
 
 var app = express();
 
@@ -21,8 +22,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', index);
+app.use('/users', users);
+app.use('/api', api);
 
 mongoose.Promise = bluebird;
 mongoose.connect('mongodb://127.0.0.1:27017/todoapp', { useMongoClient: true})

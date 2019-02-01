@@ -1,5 +1,5 @@
 let mongoose = require('mongoose');
-let mongoosePaginate = require('mongooes-paginate');
+let mongoosePaginate = require('mongoose-paginate');
 
 
 var ToDoSchema = new mongoose.Schema({
